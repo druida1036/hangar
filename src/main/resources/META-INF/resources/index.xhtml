@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:prime="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Clientes</title>
+</h:head>
+<h:body>
+	<h:form>
+		<prime:panel header="Consulta">
+			<p:dataTable var="customer" value="#{customerController.list}">
+				<p:column headerText="Id">
+					<h:outputText value="#{customer.customerId}" />
+				</p:column>
+
+				<p:column headerText="Pais">
+					<h:outputText value="#{customer.country}" />
+				</p:column>
+
+				<p:column headerText="Cliente">
+					<h:outputText value="#{customer.customerName}" />
+				</p:column>
+
+				<p:column headerText="Fecha Creacion">
+					<h:outputText value="#{customer.createdDate}" />
+				</p:column>
+				<p:column headerText="Fecha Actualizacion">
+					<h:outputText value="#{customer.updateDate}" />
+				</p:column>
+			</p:dataTable>
+			<h:commandButton value="Consultar" action="#{customerController.queryCustomers()}"></h:commandButton>
+		</prime:panel>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,11 @@
+body {
+	font-size: 12px;
+}
+
+.panelOne {
+	height: 50px
+}
+
+.noScrolllayoutUnit .ui-layout-unit-content{
+    overflow: hidden;
+}
