@@ -22,7 +22,7 @@ public class Tarea implements Serializable {
 
 	//bi-directional many-to-one association to PlanMantenimiento
 	@ManyToOne
-	@JoinColumn(name="plan_mantenimiento_id")
+	@JoinColumn(name="plan_mantenimiento_id", insertable = false, updatable = false)
 	private PlanMantenimiento planMantenimiento;
 
 	public Tarea() {

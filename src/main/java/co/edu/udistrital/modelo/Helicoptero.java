@@ -1,7 +1,9 @@
 package co.edu.udistrital.modelo;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -10,11 +12,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Helicoptero.findAll", query="SELECT h FROM Helicoptero h")
-public class Helicoptero implements Serializable {
+public class Helicoptero extends Nave {
 	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
-	private HelicopteroPK id;
 
 	@Column(name="numero_rotores")
 	private int numeroRotores;
@@ -24,14 +23,6 @@ public class Helicoptero implements Serializable {
 	private Nave nave;
 
 	public Helicoptero() {
-	}
-
-	public HelicopteroPK getId() {
-		return this.id;
-	}
-
-	public void setId(HelicopteroPK id) {
-		this.id = id;
 	}
 
 	public int getNumeroRotores() {

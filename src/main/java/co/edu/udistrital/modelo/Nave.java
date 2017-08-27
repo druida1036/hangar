@@ -1,7 +1,10 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,6 +13,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Nave.findAll", query="SELECT n FROM Nave n")
 public class Nave implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,21 +28,15 @@ public class Nave implements Serializable {
 
 	private String referencia;
 
-	//bi-directional many-to-one association to Avion
-	@OneToMany(mappedBy="nave")
-	private List<Avion> avions;
 
 	//bi-directional many-to-one association to Componente
-	@OneToMany(mappedBy="nave")
-	private List<Componente> componentes;
+	@OneToMany(mappedBy="nave", cascade = CascadeType.ALL)
+	private List<Componente> componentes = new ArrayList<Componente>();
 
-	//bi-directional many-to-one association to Helicoptero
-	@OneToMany(mappedBy="nave")
-	private List<Helicoptero> helicopteros;
 
 	//bi-directional many-to-one association to RegistroMantenmiento
 	@OneToMany(mappedBy="nave")
-	private List<RegistroMantenmiento> registroMantenmientos;
+	private List<RegistroMantenmiento> registroMantenmientos = new ArrayList<RegistroMantenmiento>();
 
 	public Nave() {
 	}
@@ -75,28 +73,6 @@ public class Nave implements Serializable {
 		this.referencia = referencia;
 	}
 
-	public List<Avion> getAvions() {
-		return this.avions;
-	}
-
-	public void setAvions(List<Avion> avions) {
-		this.avions = avions;
-	}
-
-	public Avion addAvion(Avion avion) {
-		getAvions().add(avion);
-		avion.setNave(this);
-
-		return avion;
-	}
-
-	public Avion removeAvion(Avion avion) {
-		getAvions().remove(avion);
-		avion.setNave(null);
-
-		return avion;
-	}
-
 	public List<Componente> getComponentes() {
 		return this.componentes;
 	}
@@ -119,27 +95,27 @@ public class Nave implements Serializable {
 		return componente;
 	}
 
-	public List<Helicoptero> getHelicopteros() {
-		return this.helicopteros;
-	}
+//	public List<Helicoptero> getHelicopteros() {
+//		return this.helicopteros;
+//	}
+//
+//	public void setHelicopteros(List<Helicoptero> helicopteros) {
+//		this.helicopteros = helicopteros;
+//	}
 
-	public void setHelicopteros(List<Helicoptero> helicopteros) {
-		this.helicopteros = helicopteros;
-	}
-
-	public Helicoptero addHelicoptero(Helicoptero helicoptero) {
-		getHelicopteros().add(helicoptero);
-		helicoptero.setNave(this);
-
-		return helicoptero;
-	}
-
-	public Helicoptero removeHelicoptero(Helicoptero helicoptero) {
-		getHelicopteros().remove(helicoptero);
-		helicoptero.setNave(null);
-
-		return helicoptero;
-	}
+//	public Helicoptero addHelicoptero(Helicoptero helicoptero) {
+//		getHelicopteros().add(helicoptero);
+//		helicoptero.setNave(this);
+//
+//		return helicoptero;
+//	}
+//
+//	public Helicoptero removeHelicoptero(Helicoptero helicoptero) {
+//		getHelicopteros().remove(helicoptero);
+//		helicoptero.setNave(null);
+//
+//		return helicoptero;
+//	}
 
 	public List<RegistroMantenmiento> getRegistroMantenmientos() {
 		return this.registroMantenmientos;

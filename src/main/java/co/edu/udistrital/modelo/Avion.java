@@ -1,7 +1,9 @@
 package co.edu.udistrital.modelo;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 
 /**
@@ -10,11 +12,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Avion.findAll", query="SELECT a FROM Avion a")
-public class Avion implements Serializable {
+public class Avion extends Nave {
 	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
-	private AvionPK id;
 
 	private String aerolinea;
 
@@ -26,14 +25,6 @@ public class Avion implements Serializable {
 	private Nave nave;
 
 	public Avion() {
-	}
-
-	public AvionPK getId() {
-		return this.id;
-	}
-
-	public void setId(AvionPK id) {
-		this.id = id;
 	}
 
 	public String getAerolinea() {

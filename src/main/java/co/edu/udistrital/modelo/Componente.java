@@ -1,7 +1,9 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 
 
@@ -31,6 +33,7 @@ public class Componente implements Serializable {
 
 	//bi-directional many-to-one association to Nave
 	@ManyToOne
+	@JoinColumn(name=" nave_id", insertable = false, updatable = false)
 	private Nave nave;
 
 	public Componente() {

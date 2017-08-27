@@ -1,5 +1,6 @@
 package co.edu.udistrital.controladores;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.edu.udistrital.dao.NaveDAO;
+import co.edu.udistrital.modelo.Avion;
+import co.edu.udistrital.modelo.Componente;
+import co.edu.udistrital.modelo.ComponentePK;
 import co.edu.udistrital.modelo.Customer;
 import co.edu.udistrital.servicios.CustomerService;
 
@@ -25,12 +30,28 @@ public class CustomerController {
 	@Autowired(required = true)
 	@Qualifier("customerService")
 	private CustomerService customerService;
+	
+	@Autowired
+	private NaveDAO dao;
 
 	private List<Customer> list;
 	
 	@PostConstruct
 	public void init(){
 		customerService.addCustomer("TEST-" + new Date().getTime(), "pais " + new Date().getTime());
+		Avion nave = new Avion();
+		nave.setEstado("sss");
+		nave.setFabricante("fabricante");
+		nave.setAerolinea("aerolinea");
+		Componente componente = new Componente();
+		componente.setCostoRefraccon(new BigDecimal(2));
+		nave.addComponente(componente);
+		ComponentePK pk = new ComponentePK();
+		pk.setId(9);
+		pk.setNaveId(nave.getId());
+//		componente.setId(pk);
+//		componente.setNave(nave);
+//		dao.crear(nave);
 		queryCustomers();
 	}
 

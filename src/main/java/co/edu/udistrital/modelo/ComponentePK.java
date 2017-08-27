@@ -1,6 +1,7 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 /**
@@ -11,7 +12,9 @@ import javax.persistence.*;
 public class ComponentePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-
+	
+	@Column
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	@Column(name="nave_id", insertable=false, updatable=false)
