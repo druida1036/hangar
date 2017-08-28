@@ -30,17 +30,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DatabaseConfig {
 
 	@Bean
-	@Profile("dev")
 	public DriverManagerDataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/test");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/hangar");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		return dataSource;
 	}
 
 	@Bean
+	@Profile("dev")
 	public DataSource dataSource() {
 
 		// no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
@@ -70,7 +70,7 @@ public class DatabaseConfig {
 	public LocalContainerEntityManagerFactoryBean getEMF() {
 
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-		emf.setDataSource(dataSource());
+		emf.setDataSource(getDataSource());
 		// emf.setPersistenceUnitName("spring-jpa-unit");
 		emf.setPackagesToScan("");
 		emf.setJpaVendorAdapter(getHibernateAdapter());

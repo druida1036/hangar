@@ -6,23 +6,24 @@ import javax.persistence.*;
 
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the componente database table.
  * 
  */
 @Entity
-@NamedQuery(name="Componente.findAll", query="SELECT c FROM Componente c")
+@NamedQuery(name = "Componente.findAll", query = "SELECT c FROM Componente c")
+@IdClass(ComponentePK.class)
 public class Componente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private ComponentePK id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-	@Column(name="costo_refraccon")
-	private BigDecimal costoRefraccon;
+	@Column(name = "costo_refraccion")
+	private BigDecimal costoRefraccion;
 
-	@Column(name="costo_remplazo")
+	@Column(name = "costo_remplazo")
 	private BigDecimal costoRemplazo;
 
 	private String descripcion;
@@ -31,28 +32,21 @@ public class Componente implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to Nave
+	// bi-directional many-to-one association to Nave
 	@ManyToOne
-	@JoinColumn(name=" nave_id", insertable = false, updatable = false)
+	@Id
+	@JoinColumn(name = " nave_id", insertable = false, updatable = false)
 	private Nave nave;
 
 	public Componente() {
 	}
 
-	public ComponentePK getId() {
-		return this.id;
+	public BigDecimal getCostoRefraccion() {
+		return this.costoRefraccion;
 	}
 
-	public void setId(ComponentePK id) {
-		this.id = id;
-	}
-
-	public BigDecimal getCostoRefraccon() {
-		return this.costoRefraccon;
-	}
-
-	public void setCostoRefraccon(BigDecimal costoRefraccon) {
-		this.costoRefraccon = costoRefraccon;
+	public void setCostoRefraccon(BigDecimal costoRefraccion) {
+		this.costoRefraccion = costoRefraccion;
 	}
 
 	public BigDecimal getCostoRemplazo() {

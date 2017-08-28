@@ -2,23 +2,20 @@ package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-
 /**
  * The primary key class for the componente database table.
  * 
  */
-@Embeddable
+//@Embeddable
 public class ComponentePK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 	
-	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int id;
 
-	@Column(name="nave_id", insertable=false, updatable=false)
-	private int naveId;
+//	@Column(name="nave_id", insertable=false, updatable=false)
+	private int nave;
 
 	public ComponentePK() {
 	}
@@ -28,32 +25,40 @@ public class ComponentePK implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getNaveId() {
-		return this.naveId;
+	public int getNave() {
+		return nave;
 	}
-	public void setNaveId(int naveId) {
-		this.naveId = naveId;
+	public void setNave(int nave) {
+		this.nave = nave;
 	}
-
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof ComponentePK)) {
-			return false;
-		}
-		ComponentePK castOther = (ComponentePK)other;
-		return 
-			(this.id == castOther.id)
-			&& (this.naveId == castOther.naveId);
-	}
-
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.id;
-		hash = hash * prime + this.naveId;
-		
-		return hash;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + nave;
+		return result;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		ComponentePK other = (ComponentePK) obj;
+		if (id != other.id) {
+			return false;
+		}
+		if (nave != other.nave) {
+			return false;
+		}
+		return true;
+	}
+	
+
 }

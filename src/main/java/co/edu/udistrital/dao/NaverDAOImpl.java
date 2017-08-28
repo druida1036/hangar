@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import co.edu.udistrital.modelo.Nave;
 public class NaverDAOImpl implements NaveDAO{
 	
 	
-	private static final String BASE_SELECT = "select * from Nave nave";
+	private static final String BASE_SELECT = "select nave from Nave nave";
 	@PersistenceContext
 	public EntityManager entityManager;
 
@@ -39,9 +40,11 @@ public class NaverDAOImpl implements NaveDAO{
 	}
 
 	@Transactional(readOnly=true)
-	public Nave consulta(long id) {
+	public Nave consultar(long id) {
 		String sql = BASE_SELECT + " where nave.id="+id;
 		try{
+			Nave nave = (Nave) entityManager.createQuery(sql).getSingleResult();
+			Hibernate.initialize(nave.getComponentes());
 			return (Nave) entityManager.createQuery(sql).getSingleResult();
 		}catch(Exception e){
 		}
@@ -50,7 +53,7 @@ public class NaverDAOImpl implements NaveDAO{
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<Nave> consulta() {
+	public List<Nave> consultar() {
 		
 		return entityManager.createQuery(BASE_SELECT).getResultList();
 	}

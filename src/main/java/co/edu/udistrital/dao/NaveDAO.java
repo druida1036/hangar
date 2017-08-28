@@ -9,7 +9,7 @@ public interface NaveDAO {
 	public Nave crear(Nave nave);
 	public Nave actualizar(Nave nave);
 	public void borrar(long id);
-	public Nave consulta(long id);
-	public List<Nave> consulta();
+	public Nave consultar(long id);
+	public List<Nave> consultar();
 
 }
