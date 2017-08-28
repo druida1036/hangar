@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:prime="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Mantenimiento</title>
+</h:head>
+<h:body>
+	<ui:composition>
+
+		<h:form id="form">
+			<prime:panel header="Mantenimiento">
+				<p:autoComplete id="naves" value="#{naveController.listado}"
+					completeMethod="#{naveController.completarNaves}" var="nave"
+					itemLabel="#{nave.id}" itemValue="#{nave}" forceSelection="true"
+					converter="naveConverter">
+					<f:converter binding="#{naveConverter}"></f:converter>
+				</p:autoComplete>
+
+			</prime:panel>
+
+		</h:form>
+
+	</ui:composition>
+</h:body>
+</html>

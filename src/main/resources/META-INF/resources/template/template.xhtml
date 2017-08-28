@@ -16,41 +16,31 @@
 </h:head>
 <h:body>
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="120" closable="true" 
+		<p:layoutUnit position="north" size="120" closable="true"
 			collapsible="true" styleClass="noScrolllayoutUnit">
-			<div class="center" style="center">
-			<p:graphicImage value="/images/hangar.jpg" />
+			<div class="center" style="">
+				<p:graphicImage value="/images/hangar.jpg" />
 			</div>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="west" resizable="true" closable="true"
 			collapsible="true">
 			<h:form>
-				<!-- 				<p:panel id="horizontal" header="Horizontal Toggle" -->
-				<!-- 					toggleable="true" toggleOrientation="horizontal"> -->
-
-
-
 				<p:messages id="messages" showDetail="true" autoUpdate="true"
 					closable="true" />
 
 				<p:menu toggleable="true">
 					<p:submenu label="Aeronaves">
-						<p:menuitem value="inventario" actionListener="#{menuView.save}"
-							update="messages" icon="ui-icon-disk" />
+						<p:menuitem value="inventario"
+							outcome="/pages/nave/hangar.xhtml" update="messages"
+							icon="ui-icon-disk" />
 					</p:submenu>
 					<p:submenu label="Mantenimiento">
-						<p:menuitem value="Inspeccion" actionListener="#{menuView.delete}"
-							update="messages" ajax="false" icon="ui-icon-close" />
-					</p:submenu>
-					<p:submenu label="Navigations">
-						<p:menuitem value="External" url="http://www.primefaces.org"
-							icon="ui-icon-home" />
-						<p:menuitem value="Internal" outcome="/index.xhtml"
-							icon="ui-icon-star" />
+						<p:menuitem value="Inspeccion"
+							outcome="/pages/mnto/mnto.xhtml" update="messages"
+							ajax="false" icon="ui-icon-close" />
 					</p:submenu>
 				</p:menu>
-				<!-- 				</p:panel> -->
 			</h:form>
 		</p:layoutUnit>
 

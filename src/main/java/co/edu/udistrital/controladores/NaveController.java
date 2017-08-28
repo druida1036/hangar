@@ -1,5 +1,6 @@
 package co.edu.udistrital.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +28,20 @@ public class NaveController {
 		registro = service.consultar(registro.getId());
 	}
 
+    public List<Nave> completarNaves(String query) {
+        List<Nave> naves = service.consultar();
+        List<Nave> navesFiltradas = new ArrayList<Nave>();
+         
+        for (int i = 0; i < naves.size(); i++) {
+            Nave nave = naves.get(i);
+            if(nave.getFabricante().toLowerCase().startsWith(query)) {
+                navesFiltradas.add(nave);
+            }
+        }
+         
+        return navesFiltradas;
+    }
+    
 	public List<Nave> getListado() {
 		return listado;
 	}
