@@ -17,12 +17,20 @@
 
 		<h:form id="form">
 			<prime:panel header="Mantenimiento">
-				<p:autoComplete id="naves" value="#{naveController.listado}"
-					completeMethod="#{naveController.completarNaves}" var="nave"
-					itemLabel="#{nave.id}" itemValue="#{nave}" forceSelection="true"
-					converter="naveConverter">
-					<f:converter binding="#{naveConverter}"></f:converter>
-				</p:autoComplete>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nave" value="Nave: " />
+					<p:selectOneMenu id="nave" value="#{naveController.registro}"
+						style="width:150px" >
+						<f:converter binding="#{naveConverter}" ></f:converter>
+						<p:ajax listener="#{naveController.cargarComponentes}" update="city" />
+						<f:selectItem itemLabel="Seleccione una Nave" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{naveController.listado}" var="nave"
+							itemLabel="#{nave.fabricante}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<p:inputText id="city" value="#{checkboxView.selectedCities}"></p:inputText>
 
 			</prime:panel>
 

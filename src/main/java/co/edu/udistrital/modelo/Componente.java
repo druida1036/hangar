@@ -89,4 +89,25 @@ public class Componente implements Serializable {
 		this.nave = nave;
 	}
 
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param costoRefraccion the costoRefraccion to set
+	 */
+	public void setCostoRefraccion(BigDecimal costoRefraccion) {
+		this.costoRefraccion = costoRefraccion;
+	}
+
 }

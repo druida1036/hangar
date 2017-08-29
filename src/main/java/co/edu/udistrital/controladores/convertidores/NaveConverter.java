@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.servicios.NaveService;
  
-
+@Component
 @FacesConverter("naveConverter")
 public class NaveConverter implements Converter {
 	
@@ -22,7 +22,7 @@ public class NaveConverter implements Converter {
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0) {
             try {
-                return service.consultar().get(Integer.parseInt(value));
+                return service.consultar(Integer.parseInt(value));
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
             }
@@ -33,7 +33,7 @@ public class NaveConverter implements Converter {
     }
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
-        if(object != null) {
+        if(object != null && object instanceof Nave ) {
             return String.valueOf(((Nave) object).getId());
         }
         else {

@@ -8,6 +8,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import co.edu.udistrital.controladores.convertidores.ComponenteConverter;
+import co.edu.udistrital.modelo.Componente;
 import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.servicios.NaveService;
 
@@ -16,8 +18,11 @@ public class NaveController {
 	
 	@Autowired
 	private NaveService service;
+	@Autowired
+	private ComponenteConverter componenteConverter;
 	private List<Nave> listado;
 	private Nave registro;
+	private List<Componente> registroComponente;
 	
 	@PostConstruct
 	public void init(){
@@ -42,6 +47,10 @@ public class NaveController {
         return navesFiltradas;
     }
     
+    public void cargarComponentes(){
+    	componenteConverter.setListado(registro.getComponentes());
+    }
+    
 	public List<Nave> getListado() {
 		return listado;
 	}
@@ -58,6 +67,18 @@ public class NaveController {
 		this.registro = registro;
 	}
 
-	
+	/**
+	 * @return the registroComponente
+	 */
+	public List<Componente> getRegistroComponente() {
+		return registroComponente;
+	}
+
+	/**
+	 * @param registroComponente the registroComponente to set
+	 */
+	public void setRegistroComponente(List<Componente> registroComponente) {
+		this.registroComponente = registroComponente;
+	}
 
 }
