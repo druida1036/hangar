@@ -14,6 +14,18 @@ import java.math.BigDecimal;
 @NamedQuery(name = "Componente.findAll", query = "SELECT c FROM Componente c")
 @IdClass(ComponentePK.class)
 public class Componente implements Serializable {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCostoRefraccion(BigDecimal costoRefraccion) {
+		this.costoRefraccion = costoRefraccion;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

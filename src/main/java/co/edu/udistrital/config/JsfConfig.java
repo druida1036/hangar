@@ -1,5 +1,8 @@
 package co.edu.udistrital.config;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.ServletContextAware;
 
 import com.sun.faces.config.ConfigureListener;
+import com.sun.faces.config.FacesInitializer;
 
 @Configuration
 public class JsfConfig extends SpringBootServletInitializer implements ServletContextAware {
@@ -21,6 +25,11 @@ public class JsfConfig extends SpringBootServletInitializer implements ServletCo
         super.onStartup(servletContext);
         servletContext.setInitParameter("primefaces.CLIENT_SIDE_VALIDATION", "true");
         servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
+        FacesInitializer facesInitializer = new FacesInitializer();
+
+        Set<Class<?>> clazz = new HashSet<Class<?>>();
+        clazz.add(JsfConfig.class);
+        facesInitializer.onStartup(clazz, servletContext);
     }
 
     @Bean

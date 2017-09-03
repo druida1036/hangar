@@ -2,7 +2,9 @@ package co.edu.udistrital.controladores;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -16,6 +18,7 @@ import co.edu.udistrital.modelo.Avion;
 import co.edu.udistrital.modelo.Componente;
 import co.edu.udistrital.modelo.Customer;
 import co.edu.udistrital.modelo.Helicoptero;
+import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.servicios.CustomerService;
 
 @Controller
@@ -47,33 +50,62 @@ public class CustomerController {
 
 	public String queryCustomers() {
 		LOG.info("Quering Customers");
-		Avion nave = new Avion();
-		nave.setEstado("Activo");
-		nave.setFabricante("fabricante");
-		nave.setAerolinea("aerolinea");
-		Componente componente = new Componente();
-		componente.setCostoRefraccon(new BigDecimal(2));
-		componente.setNombre("parte");
-		componente.setDescripcion("Descripcion");
-		componente.setEstado("Activo");
-		nave.addComponente(componente);
-		componente.setNave(nave);
-		dao.crear(nave);
-		Helicoptero helicoptero = new Helicoptero();
-		helicoptero.setEstado("Activos");
-		helicoptero.setFabricante("helicop");
-		helicoptero.setNumeroRotores(3);
-		componente = new Componente();
-		componente.setCostoRefraccon(new BigDecimal(2));
-		componente.setNombre("parte");
-		componente.setDescripcion("Descripcion");
-		componente.setEstado("Activo");
-		helicoptero.addComponente(componente);
-		componente.setNave(helicoptero);
-		dao.crear(helicoptero);
+		Map<String, String[]> naves = new HashMap<String, String[]>();
+		naves.put("avion_01", new String [] {"Boing,747,Avianca","Ala Izq,Ala Izq;Ala Der,Ala Der"});
+		naves.put("helico_01", new String [] {"Agusta Wetsland,AW101 VVIP,2","Rotor,Rotor;Patin,Patin;Tren,Tren"});
+		naves.put("helico_02", new String [] {"Sikorky,S-92VVIP,1","Rotor,Rotor;Patin,Patin;Tren,Tren"});
+		for (Map.Entry<String, String[]> row : naves.entrySet()) {
+			String[] datos = row.getValue()[0].split(",");
+			if (row.getKey().contains("avion")) {
+				crearAvion(datos[0], datos[1],datos[2], row.getValue()[1]);
+			}else{
+				crearHelicoptero(datos[0], datos[1],datos[2], row.getValue()[1]);	
+			}
+		}
+		
 		list = customerService.getAllCustomers();
 		return "pages/nave/hangar.xhtml";
 		
+	}
+
+	private void crearHelicoptero(String fabricante, String referencia, String rotores, String datos) {
+		String[] dtCpnte = datos.split(";");
+		Helicoptero helicoptero = new Helicoptero();
+		helicoptero.setEstado("Activos");
+		helicoptero.setFabricante(fabricante);
+		helicoptero.setNumeroRotores(new Integer(rotores));
+		for (String registro : dtCpnte) {
+			String[] info = registro.split(",");
+			crearComponente(helicoptero, info [0], info[1]);
+			
+		}
+		dao.crear(helicoptero);
+	}
+
+	private void crearAvion(String fabricante, String referencia, String aerolinea, String datos) {
+		String[] dtCpnte = datos.split(";");
+		Avion nave = new Avion();
+		nave.setEstado("Activo");
+		nave.setFabricante(fabricante);
+		nave.setReferencia(referencia);
+		nave.setAerolinea(aerolinea);
+		for (String registro : dtCpnte) {
+			String[] info = registro.split(",");
+			crearComponente(nave, info [0], info[1]);
+			
+		}
+		
+		dao.crear(nave);
+	}
+
+	private void crearComponente(Nave nave, String nombre, String descripcion) {
+		Componente componente = new Componente();
+		componente.setCostoRefraccon(new BigDecimal(2));
+		componente.setNombre(nombre);
+		componente.setDescripcion(descripcion);
+		componente.setEstado("Activo");
+		nave.addComponente(componente);
+		componente.setNave(nave);
 	}
 
 

@@ -16,6 +16,7 @@ import java.util.List;
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Nave.findAll", query="SELECT n FROM Nave n")
 public class Nave implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -137,6 +138,28 @@ public class Nave implements Serializable {
 		registroMantenmiento.setNave(null);
 
 		return registroMantenmiento;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nave other = (Nave) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }
