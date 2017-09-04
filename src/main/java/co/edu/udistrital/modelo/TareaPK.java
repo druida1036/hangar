@@ -1,7 +1,8 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Embeddable;
 
 /**
  * The primary key class for the tarea database table.
@@ -14,8 +15,7 @@ public class TareaPK implements Serializable {
 
 	private int id;
 
-	@Column(name="plan_mantenimiento_id", insertable=false, updatable=false)
-	private int planMantenimientoId;
+	private int planMantenimiento;
 
 	public TareaPK() {
 	}
@@ -25,32 +25,33 @@ public class TareaPK implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getPlanMantenimientoId() {
-		return this.planMantenimientoId;
+	public int getPlanMantenimiento() {
+		return planMantenimiento;
 	}
-	public void setPlanMantenimientoId(int planMantenimientoId) {
-		this.planMantenimientoId = planMantenimientoId;
+	public void setPlanMantenimiento(int planMantenimiento) {
+		this.planMantenimiento = planMantenimiento;
 	}
-
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof TareaPK)) {
-			return false;
-		}
-		TareaPK castOther = (TareaPK)other;
-		return 
-			(this.id == castOther.id)
-			&& (this.planMantenimientoId == castOther.planMantenimientoId);
-	}
-
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.id;
-		hash = hash * prime + this.planMantenimientoId;
-		
-		return hash;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + planMantenimiento;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TareaPK other = (TareaPK) obj;
+		if (id != other.id)
+			return false;
+		if (planMantenimiento != other.planMantenimiento)
+			return false;
+		return true;
 	}
 }

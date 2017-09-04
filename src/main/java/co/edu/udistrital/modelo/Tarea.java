@@ -15,8 +15,7 @@ import javax.persistence.*;
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private TareaPK id;
+	private int id;
 
 	private String descripcion;
 
@@ -24,6 +23,7 @@ public class Tarea implements Serializable {
 
 	// bi-directional many-to-one association to PlanMantenimiento
 	@ManyToOne
+	@Id
 	@JoinColumn(name = "plan_mantenimiento_id", insertable = false, updatable = false)
 	private PlanMantenimiento planMantenimiento;
 
@@ -32,14 +32,6 @@ public class Tarea implements Serializable {
 	private List<DetalleMantenimiento> detalleMantenimientos;
 
 	public Tarea() {
-	}
-
-	public TareaPK getId() {
-		return this.id;
-	}
-
-	public void setId(TareaPK id) {
-		this.id = id;
 	}
 
 	public String getDescripcion() {
@@ -72,6 +64,14 @@ public class Tarea implements Serializable {
 
 	public void setDetalleMantenimientos(List<DetalleMantenimiento> detalleMantenimientos) {
 		this.detalleMantenimientos = detalleMantenimientos;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
