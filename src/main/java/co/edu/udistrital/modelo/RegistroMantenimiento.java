@@ -9,9 +9,9 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="registro_mantenmiento")
-@NamedQuery(name="RegistroMantenmiento.findAll", query="SELECT r FROM RegistroMantenmiento r")
-public class RegistroMantenmiento implements Serializable {
+@Table(name="registro_mantenimiento")
+@NamedQuery(name="RegistroMantenimiento.findAll", query="SELECT r FROM RegistroMantenimiento r")
+public class RegistroMantenimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,7 +27,7 @@ public class RegistroMantenmiento implements Serializable {
 	@JoinColumn(name="plan_mantenimiento_id")
 	private PlanMantenimiento planMantenimiento;
 
-	public RegistroMantenmiento() {
+	public RegistroMantenimiento() {
 	}
 
 	public int getId() {

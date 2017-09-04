@@ -16,6 +16,7 @@ import java.util.List;
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Nave.findAll", query="SELECT n FROM Nave n")
 public class Nave implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -36,7 +37,7 @@ public class Nave implements Serializable {
 
 	//bi-directional many-to-one association to RegistroMantenmiento
 	@OneToMany(mappedBy="nave")
-	private List<RegistroMantenmiento> registroMantenmientos = new ArrayList<RegistroMantenmiento>();
+	private List<RegistroMantenimiento> registroMantenmientos = new ArrayList<RegistroMantenimiento>();
 
 	public Nave() {
 	}
@@ -117,26 +118,48 @@ public class Nave implements Serializable {
 //		return helicoptero;
 //	}
 
-	public List<RegistroMantenmiento> getRegistroMantenmientos() {
+	public List<RegistroMantenimiento> getRegistroMantenmientos() {
 		return this.registroMantenmientos;
 	}
 
-	public void setRegistroMantenmientos(List<RegistroMantenmiento> registroMantenmientos) {
+	public void setRegistroMantenmientos(List<RegistroMantenimiento> registroMantenmientos) {
 		this.registroMantenmientos = registroMantenmientos;
 	}
 
-	public RegistroMantenmiento addRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento addRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().add(registroMantenmiento);
 		registroMantenmiento.setNave(this);
 
 		return registroMantenmiento;
 	}
 
-	public RegistroMantenmiento removeRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento removeRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().remove(registroMantenmiento);
 		registroMantenmiento.setNave(null);
 
 		return registroMantenmiento;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nave other = (Nave) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

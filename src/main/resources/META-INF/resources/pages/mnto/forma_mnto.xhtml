@@ -18,19 +18,26 @@
 		<h:form id="form">
 			<prime:panel header="Mantenimiento">
 				<h:panelGrid columns="2" cellpadding="5">
-					<p:outputLabel for="nave" value="Nave: " />
-					<p:selectOneMenu id="nave" value="#{naveController.registro}"
-						style="width:150px" >
-						<f:converter binding="#{naveConverter}" ></f:converter>
-						<p:ajax listener="#{naveController.cargarComponentes}" update="city" />
-						<f:selectItem itemLabel="Seleccione una Nave" itemValue=""
+					<p:outputLabel for="naves" value="Naves: " />
+					<p:selectOneMenu id="naves" value="#{naveController.registro}"
+						style="width:150px" converter="#{naveConverter}">
+						<p:ajax event="change" listener="#{naveController.handleChange}"
+							update="form:cpntes" />
+						<f:selectItem itemLabel="Seleccione" itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems value="#{naveController.listado}" var="nave"
 							itemLabel="#{nave.fabricante}" />
 					</p:selectOneMenu>
+					<p:outputLabel for="cpntes" value="Componentes: " />
+					<p:selectManyCheckbox id="cpntes"
+						converter="#{componenteConverter}" layout="pageDirection" columns="1">
+						<f:selectItems value="#{naveController.registro.componentes}"
+							var="cpnte" itemLabel="#{cpnte.nombre}" />
+					</p:selectManyCheckbox>
 				</h:panelGrid>
 
-				<p:inputText id="city" value="#{checkboxView.selectedCities}"></p:inputText>
+
+
 
 			</prime:panel>
 

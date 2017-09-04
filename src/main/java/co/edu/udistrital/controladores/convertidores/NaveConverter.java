@@ -20,23 +20,27 @@ public class NaveConverter implements Converter {
 	private NaveService service;
  
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
+    	
         if(value != null && value.trim().length() > 0) {
             try {
+            	System.out.println("converter object "+value);
                 return service.consultar(Integer.parseInt(value));
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
             }
         }
         else {
+        	System.out.println("converter object "+value);
             return null;
         }
     }
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
-        if(object != null && object instanceof Nave ) {
+        if(object != null && object instanceof Nave) {
             return String.valueOf(((Nave) object).getId());
         }
         else {
+        	System.out.println("converter string "+object);
             return null;
         }
     }   

@@ -76,7 +76,7 @@ public class DatabaseConfig {
 		emf.setJpaVendorAdapter(getHibernateAdapter());
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+		jpaProperties.put("hibernate.hbm2ddl.auto", "create");
 		jpaProperties.put("hibernate.show_sql", "true");
 		jpaProperties.put("hibernate.format_sql", "false");
 		jpaProperties.put("hibernate.hbm2ddl.import_files", "db/insert-data.sql");

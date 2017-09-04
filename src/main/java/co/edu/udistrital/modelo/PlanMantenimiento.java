@@ -2,6 +2,8 @@ package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,12 +29,12 @@ public class PlanMantenimiento implements Serializable {
 	private String planMantenimientocol;
 
 	//bi-directional many-to-one association to Tarea
-	@OneToMany(mappedBy="planMantenimiento")
-	private List<Tarea> tareas;
+	@OneToMany(mappedBy="planMantenimiento", cascade = CascadeType.ALL)
+	private List<Tarea> tareas = new ArrayList<>();
 
 	//bi-directional many-to-one association to RegistroMantenmiento
 	@OneToMany(mappedBy="planMantenimiento")
-	private List<RegistroMantenmiento> registroMantenmientos;
+	private List<RegistroMantenimiento> registroMantenmientos = new ArrayList<>();
 
 	public PlanMantenimiento() {
 	}
@@ -91,22 +93,22 @@ public class PlanMantenimiento implements Serializable {
 		return tarea;
 	}
 
-	public List<RegistroMantenmiento> getRegistroMantenmientos() {
+	public List<RegistroMantenimiento> getRegistroMantenmientos() {
 		return this.registroMantenmientos;
 	}
 
-	public void setRegistroMantenmientos(List<RegistroMantenmiento> registroMantenmientos) {
+	public void setRegistroMantenmientos(List<RegistroMantenimiento> registroMantenmientos) {
 		this.registroMantenmientos = registroMantenmientos;
 	}
 
-	public RegistroMantenmiento addRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento addRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().add(registroMantenmiento);
 		registroMantenmiento.setPlanMantenimiento(this);
 
 		return registroMantenmiento;
 	}
 
-	public RegistroMantenmiento removeRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento removeRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().remove(registroMantenmiento);
 		registroMantenmiento.setPlanMantenimiento(null);
 
