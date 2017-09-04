@@ -37,7 +37,7 @@ public class Nave implements Serializable {
 
 	//bi-directional many-to-one association to RegistroMantenmiento
 	@OneToMany(mappedBy="nave")
-	private List<RegistroMantenmiento> registroMantenmientos = new ArrayList<RegistroMantenmiento>();
+	private List<RegistroMantenimiento> registroMantenmientos = new ArrayList<RegistroMantenimiento>();
 
 	public Nave() {
 	}
@@ -118,22 +118,22 @@ public class Nave implements Serializable {
 //		return helicoptero;
 //	}
 
-	public List<RegistroMantenmiento> getRegistroMantenmientos() {
+	public List<RegistroMantenimiento> getRegistroMantenmientos() {
 		return this.registroMantenmientos;
 	}
 
-	public void setRegistroMantenmientos(List<RegistroMantenmiento> registroMantenmientos) {
+	public void setRegistroMantenmientos(List<RegistroMantenimiento> registroMantenmientos) {
 		this.registroMantenmientos = registroMantenmientos;
 	}
 
-	public RegistroMantenmiento addRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento addRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().add(registroMantenmiento);
 		registroMantenmiento.setNave(this);
 
 		return registroMantenmiento;
 	}
 
-	public RegistroMantenmiento removeRegistroMantenmiento(RegistroMantenmiento registroMantenmiento) {
+	public RegistroMantenimiento removeRegistroMantenmiento(RegistroMantenimiento registroMantenmiento) {
 		getRegistroMantenmientos().remove(registroMantenmiento);
 		registroMantenmiento.setNave(null);
 

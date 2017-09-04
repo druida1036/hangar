@@ -1,15 +1,17 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
 
+import javax.persistence.*;
 
 /**
  * The persistent class for the tarea database table.
  * 
  */
 @Entity
-@NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tarea t")
+@NamedQuery(name = "Tarea.findAll", query = "SELECT t FROM Tarea t")
+@IdClass(TareaPK.class)
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,10 +22,14 @@ public class Tarea implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to PlanMantenimiento
+	// bi-directional many-to-one association to PlanMantenimiento
 	@ManyToOne
-	@JoinColumn(name="plan_mantenimiento_id", insertable = false, updatable = false)
+	@JoinColumn(name = "plan_mantenimiento_id", insertable = false, updatable = false)
 	private PlanMantenimiento planMantenimiento;
+
+	// bi-directional many-to-one association to Tarea
+	@OneToMany(mappedBy = "tarea")
+	private List<DetalleMantenimiento> detalleMantenimientos;
 
 	public Tarea() {
 	}
@@ -58,6 +64,14 @@ public class Tarea implements Serializable {
 
 	public void setPlanMantenimiento(PlanMantenimiento planMantenimiento) {
 		this.planMantenimiento = planMantenimiento;
+	}
+
+	public List<DetalleMantenimiento> getDetalleMantenimientos() {
+		return detalleMantenimientos;
+	}
+
+	public void setDetalleMantenimientos(List<DetalleMantenimiento> detalleMantenimientos) {
+		this.detalleMantenimientos = detalleMantenimientos;
 	}
 
 }

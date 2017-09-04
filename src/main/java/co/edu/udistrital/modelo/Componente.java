@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The persistent class for the componente database table.
@@ -14,17 +16,6 @@ import java.math.BigDecimal;
 @NamedQuery(name = "Componente.findAll", query = "SELECT c FROM Componente c")
 @IdClass(ComponentePK.class)
 public class Componente implements Serializable {
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setCostoRefraccion(BigDecimal costoRefraccion) {
-		this.costoRefraccion = costoRefraccion;
-	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +40,18 @@ public class Componente implements Serializable {
 	@Id
 	@JoinColumn(name = " nave_id", insertable = false, updatable = false)
 	private Nave nave;
+
+	// bi-directional many-to-one association to RegistroMantenmiento
+	@OneToMany(mappedBy = "componente")
+	private List<DetalleMantenimiento> detalleMantenimientos = new ArrayList<DetalleMantenimiento>();
+
+	public List<DetalleMantenimiento> getDetalleMantenimientos() {
+		return detalleMantenimientos;
+	}
+
+	public void setDetalleMantenimientos(List<DetalleMantenimiento> detalleMantenimientos) {
+		this.detalleMantenimientos = detalleMantenimientos;
+	}
 
 	public Componente() {
 	}
@@ -99,6 +102,18 @@ public class Componente implements Serializable {
 
 	public void setNave(Nave nave) {
 		this.nave = nave;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCostoRefraccion(BigDecimal costoRefraccion) {
+		this.costoRefraccion = costoRefraccion;
 	}
 
 }

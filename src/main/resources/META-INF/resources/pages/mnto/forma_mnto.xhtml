@@ -30,7 +30,7 @@
 					</p:selectOneMenu>
 					<p:outputLabel for="cpntes" value="Componentes: " />
 					<p:selectManyCheckbox id="cpntes"
-						converter="#{componenteConverter}" columns="1">
+						converter="#{componenteConverter}" layout="pageDirection" columns="1">
 						<f:selectItems value="#{naveController.registro.componentes}"
 							var="cpnte" itemLabel="#{cpnte.nombre}" />
 					</p:selectManyCheckbox>
