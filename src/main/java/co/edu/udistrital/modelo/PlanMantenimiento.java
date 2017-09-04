@@ -29,7 +29,7 @@ public class PlanMantenimiento implements Serializable {
 	private String planMantenimientocol;
 
 	//bi-directional many-to-one association to Tarea
-	@OneToMany(mappedBy="planMantenimiento", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="planMantenimiento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Tarea> tareas = new ArrayList<>();
 
 	//bi-directional many-to-one association to RegistroMantenmiento
@@ -113,6 +113,34 @@ public class PlanMantenimiento implements Serializable {
 		registroMantenmiento.setPlanMantenimiento(null);
 
 		return registroMantenmiento;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PlanMantenimiento other = (PlanMantenimiento) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

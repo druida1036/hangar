@@ -14,7 +14,9 @@ import javax.persistence.*;
 @IdClass(TareaPK.class)
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private String descripcion;
@@ -22,7 +24,7 @@ public class Tarea implements Serializable {
 	private String nombre;
 
 	// bi-directional many-to-one association to PlanMantenimiento
-	@ManyToOne
+	@ManyToOne()
 	@Id
 	@JoinColumn(name = "plan_mantenimiento_id", insertable = false, updatable = false)
 	private PlanMantenimiento planMantenimiento;
@@ -72,6 +74,34 @@ public class Tarea implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tarea other = (Tarea) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

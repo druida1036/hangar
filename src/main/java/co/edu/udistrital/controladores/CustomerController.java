@@ -103,7 +103,6 @@ public class CustomerController {
 		planMantenimiento.addTarea(tarea);
 		tarea.setPlanMantenimiento(planMantenimiento);
 
-		planMantenimientoService.crear(planMantenimiento);
 	}
 
 	private void crearNaves() {

@@ -13,7 +13,7 @@ import co.edu.udistrital.modelo.Nave;
 
 @Repository()
 @Transactional
-public class NaverDAOImpl implements NaveDAO{
+public class NaveDAOImpl implements NaveDAO{
 	
 	
 	private static final String BASE_SELECT = "select nave from Nave nave";

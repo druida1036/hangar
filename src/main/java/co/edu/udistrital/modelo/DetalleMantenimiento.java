@@ -32,9 +32,13 @@ public class DetalleMantenimiento implements Serializable {
 	@JoinColumn(name = "registro_mantenimiento_id", insertable = false, updatable = false)
 	private RegistroMantenimiento mantenmiento;
 
+//	@MapsId()
 	@ManyToOne()
+//	@JoinColumn(name = "tarea_id", insertable = false, updatable = false)
+//	@JoinColumns({ @JoinColumn(name = "tarea_id", insertable = false, updatable = false),
+//			@JoinColumn(name = "id", insertable = false, updatable = false) })
 	private Tarea tarea;
-	
+
 	@ManyToOne()
 	private Componente componente;
 

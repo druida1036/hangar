@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import co.edu.udistrital.modelo.PlanMantenimiento;
 public class PlanMantenimientoDAOImpl implements PlanMantenimientoDAO{
 	
 	
-	private static final String BASE_SELECT = "select planMantenimiento from Componente planMantenimiento";
+	private static final String BASE_SELECT = "select planMantenimiento from PlanMantenimiento planMantenimiento";
 	@PersistenceContext
 	public EntityManager entityManager;
 
@@ -42,6 +43,8 @@ public class PlanMantenimientoDAOImpl implements PlanMantenimientoDAO{
 	public PlanMantenimiento consultar(long id) {
 		String sql = BASE_SELECT + " where planMantenimiento.id="+id;
 		try{
+			PlanMantenimiento mantenimiento = (PlanMantenimiento) entityManager.createQuery(sql).getSingleResult();
+			Hibernate.isInitialized(mantenimiento.getTareas());
 			return (PlanMantenimiento) entityManager.createQuery(sql).getSingleResult();
 		}catch(Exception e){
 		}

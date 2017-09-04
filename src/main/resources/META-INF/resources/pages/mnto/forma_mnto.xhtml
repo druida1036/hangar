@@ -17,26 +17,55 @@
 
 		<h:form id="form">
 			<prime:panel header="Mantenimiento">
+				<p:growl id="growl" life="2000" />
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:outputLabel for="naves" value="Naves: " />
-					<p:selectOneMenu id="naves" value="#{naveController.registro}"
-						style="width:150px" converter="#{naveConverter}">
-						<p:ajax event="change" listener="#{naveController.handleChange}"
+					<p:selectOneMenu id="naves"
+						value="#{mantenimientoController.registro}" style="width:150px"
+						converter="#{naveConverter}">
+						<p:ajax event="change"
+							listener="#{mantenimientoController.completarRegistro}"
 							update="form:cpntes" />
 						<f:selectItem itemLabel="Seleccione" itemValue=""
 							noSelectionOption="true" />
-						<f:selectItems value="#{naveController.listado}" var="nave"
-							itemLabel="#{nave.fabricante}" />
+						<f:selectItems value="#{mantenimientoController.listado}"
+							var="nave" itemLabel="#{nave.fabricante}" />
 					</p:selectOneMenu>
 					<p:outputLabel for="cpntes" value="Componentes: " />
 					<p:selectManyCheckbox id="cpntes"
-						converter="#{componenteConverter}" layout="pageDirection" columns="1">
-						<f:selectItems value="#{naveController.registro.componentes}"
+						converter="#{componenteConverter}" layout="pageDirection"
+						columns="1" value="#{mantenimientoController.componentes}">
+						<f:selectItems
+							value="#{mantenimientoController.registro.componentes}"
 							var="cpnte" itemLabel="#{cpnte.nombre}" />
+					</p:selectManyCheckbox>
+
+					<p:outputLabel for="planes" value="Planes: " />
+					<p:selectOneMenu id="planes"
+						value="#{mantenimientoController.mantenimiento}"
+						style="width:150px" converter="#{planConverter}">
+						<p:ajax event="change"
+							listener="#{mantenimientoController.completarMantenimiento}"
+							update="form:tareas" />
+						<f:selectItem itemLabel="Seleccione" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{mantenimientoController.planes}"
+							var="plan" itemLabel="#{plan.nombre}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tareas" value="Tareas: " />
+					<p:selectManyCheckbox id="tareas" converter="#{tareaConverter}"
+						layout="pageDirection" columns="1"
+						value="#{mantenimientoController.tareas}">
+						<f:selectItems
+							value="#{mantenimientoController.mantenimiento.tareas}"
+							var="tarea" itemLabel="#{tarea.nombre}" />
 					</p:selectManyCheckbox>
 				</h:panelGrid>
 
 
+				<p:commandButton value="Guardar" icon="ui-icon-check"
+					action="#{mantenimientoController.guardar}" />
 
 
 			</prime:panel>
