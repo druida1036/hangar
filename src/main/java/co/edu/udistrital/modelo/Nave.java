@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Nave.findAll", query="SELECT n FROM Nave n")
-public class Nave implements Serializable {
+public abstract class Nave implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,8 @@ public class Nave implements Serializable {
 	public Nave() {
 	}
 
+	public abstract String getLogo();
+	
 	public int getId() {
 		return this.id;
 	}

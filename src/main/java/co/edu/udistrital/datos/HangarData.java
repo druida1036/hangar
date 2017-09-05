@@ -1,68 +1,35 @@
-package co.edu.udistrital.controladores;
+package co.edu.udistrital.datos;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import co.edu.udistrital.dao.NaveDAO;
 import co.edu.udistrital.modelo.Avion;
 import co.edu.udistrital.modelo.Componente;
-import co.edu.udistrital.modelo.Customer;
 import co.edu.udistrital.modelo.Helicoptero;
 import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.modelo.PlanMantenimiento;
 import co.edu.udistrital.modelo.Tarea;
-import co.edu.udistrital.servicios.CustomerService;
 import co.edu.udistrital.servicios.PlanMantenimientoService;
 
-@Controller
-public class CustomerController {
-
-	Logger LOG = Logger.getLogger(CustomerController.class.getName());
-
-	@Autowired(required = true)
-	@Qualifier("customerService")
-	private CustomerService customerService;
-
+@Component
+public class HangarData {
 	@Autowired
-	private NaveDAO dao;
-
+	public NaveDAO dao;
 	@Autowired
-	private PlanMantenimientoService planMantenimientoService;
+	public PlanMantenimientoService planMantenimientoService;
 
-	private List<Customer> list;
+	public HangarData() {
+	}
 
 	@PostConstruct
-	public void init() {
-		customerService.addCustomer("TEST-" + new Date().getTime(), "pais " + new Date().getTime());
-		crearDatos();
-		queryCustomers();
-	}
-
-	public String getHome() {
-		LOG.info("Home page invoked");
-		customerService.addCustomer("TEST-" + new Date().getTime(), "pais " + new Date().getTime());
-		return "redirect:customers.action";
-	}
-
-	public String queryCustomers() {
-		LOG.info("Quering Customers");
-
-		list = customerService.getAllCustomers();
-		return "pages/nave/hangar.xhtml";
-
-	}
-
-	private void crearDatos() {
+	public void crearDatos() {
 		crearNaves();
 		crearPlanes();
 	}
@@ -123,7 +90,7 @@ public class CustomerController {
 	private void crearHelicoptero(String fabricante, String referencia, String rotores, String datos) {
 		String[] dtCpnte = datos.split(";");
 		Helicoptero helicoptero = new Helicoptero();
-		helicoptero.setEstado("Activos");
+		helicoptero.setEstado("Activo");
 		helicoptero.setFabricante(fabricante);
 		helicoptero.setReferencia(referencia);
 		helicoptero.setNumeroRotores(new Integer(rotores));
@@ -160,20 +127,4 @@ public class CustomerController {
 		nave.addComponente(componente);
 		componente.setNave(nave);
 	}
-
-	/**
-	 * @return the list
-	 */
-	public List<Customer> getList() {
-		return list;
-	}
-
-	/**
-	 * @param list
-	 *            the list to set
-	 */
-	public void setList(List<Customer> list) {
-		this.list = list;
-	}
-
 }

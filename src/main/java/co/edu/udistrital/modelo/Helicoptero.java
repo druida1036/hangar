@@ -41,4 +41,10 @@ public class Helicoptero extends Nave {
 		this.nave = nave;
 	}
 
+	@Override
+	public String getLogo() {
+		return "heli";
+		
+	}
+
 }

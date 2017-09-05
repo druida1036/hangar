@@ -51,4 +51,9 @@ public class Avion extends Nave {
 		this.nave = nave;
 	}
 
+	@Override
+	public String getLogo() {
+		return "avion";
+	}
+
 }

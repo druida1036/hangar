@@ -1,10 +1,21 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -20,6 +31,10 @@ public class RegistroMantenimiento implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	private Date fecha;
+	
+	private BigDecimal total;
 
 	//bi-directional many-to-one association to Nave
 	@ManyToOne
@@ -72,6 +87,34 @@ public class RegistroMantenimiento implements Serializable {
 	 */
 	public void setDetalleMantenimientos(List<DetalleMantenimiento> detalleMantenimientos) {
 		this.detalleMantenimientos = detalleMantenimientos;
+	}
+
+	/**
+	 * @return the fecha
+	 */
+	public Date getFecha() {
+		return fecha;
+	}
+
+	/**
+	 * @param fecha the fecha to set
+	 */
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	/**
+	 * @return the total
+	 */
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	/**
+	 * @param total the total to set
+	 */
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 
 }

@@ -19,7 +19,7 @@
 		<p:layoutUnit position="north" size="120" closable="true"
 			collapsible="true" styleClass="noScrolllayoutUnit">
 			<div class="center" style="">
-				<p:graphicImage value="/images/hangar.jpg" />
+				<p:graphicImage value="/images/header.jpg" />
 			</div>
 		</p:layoutUnit>
 
@@ -29,24 +29,22 @@
 
 				<p:menu toggleable="true">
 					<p:submenu label="Aeronaves">
-						<p:menuitem value="inventario"
-							outcome="/pages/nave/hangar.xhtml" 
+						<p:menuitem value="inventario" outcome="/pages/nave/hangar.xhtml"
 							icon="ui-icon-disk" />
 					</p:submenu>
 					<p:submenu label="Mantenimiento">
-						<p:menuitem value="Inspeccion"
-							outcome="/pages/mnto/mnto.xhtml" 
+						<p:menuitem value="Inspeccion" outcome="/pages/mnto/mnto.xhtml"
 							ajax="false" icon="ui-icon-close" />
+						<p:menuitem value="Reporte" outcome="/pages/mnto/reporte.xhtml"
+							ajax="false" icon="ui-icon-close" />	
 					</p:submenu>
 				</p:menu>
 			</h:form>
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center">
-			<!-- Menús, headers y todo lo que vaya antes del contenido -->
 			<ui:insert name="contenido">
 			</ui:insert>
-			<!-- Footer y otros componentes que vayan después del contenido -->
 		</p:layoutUnit>
 	</p:layout>
 

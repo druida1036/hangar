@@ -3,17 +3,17 @@ package co.edu.udistrital.controladores;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import co.edu.udistrital.dao.DetalleMantenimientoDAO;
+import co.edu.udistrital.modelo.Avion;
 import co.edu.udistrital.modelo.Componente;
-import co.edu.udistrital.modelo.DetalleMantenimiento;
 import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.modelo.PlanMantenimiento;
-import co.edu.udistrital.modelo.RegistroMantenimiento;
 import co.edu.udistrital.modelo.Tarea;
 import co.edu.udistrital.servicios.NaveService;
 import co.edu.udistrital.servicios.PlanMantenimientoService;
@@ -29,8 +29,6 @@ public class mantenimientoController {
 	private PlanMantenimientoService mantenimientoService;
 	@Autowired
 	private RegistroMantenimientoService registroMantenimientoService;
-	@Autowired
-	private DetalleMantenimientoDAO detalleMantenimientoDAO;
 	private List<Nave> listado;
 	private List<PlanMantenimiento> planes;
 	private List<Componente> componentes;
@@ -53,24 +51,20 @@ public class mantenimientoController {
 		mantenimiento = mantenimientoService.consultar(mantenimiento.getId());
 	}
 
-	public void guardar() {
-		RegistroMantenimiento registroMantenimiento = new RegistroMantenimiento();
-		registroMantenimiento.setPlanMantenimiento(mantenimiento);
-		registroMantenimiento.setNave(registro);
+	public String guardar() {
+		registroMantenimientoService.crear(registro, mantenimiento, componentes, tareas);
+		FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Successful",  "Your message: " + "Reporte enviado") );
+        limpiar();
+        return "reporte.xhtml";
+	}
+
+	private void limpiar() {
+		registro = new Avion();
+		mantenimiento = new PlanMantenimiento();
+		componentes.clear();
+		tareas.clear();
 		
-		for (Componente componente : componentes) {
-			for (Tarea tarea : tareas) {
-				DetalleMantenimiento detalleMantenimiento = new DetalleMantenimiento();				
-				registroMantenimiento.getDetalleMantenimientos().add(detalleMantenimiento);
-				detalleMantenimiento.setMantenmiento(registroMantenimiento);
-				detalleMantenimiento.setComponente(componente);
-				detalleMantenimiento.setTarea(tarea);
-			}
-		}
-		
-		
-		registroMantenimientoService.crear(registroMantenimiento);
-		System.out.println("guardar");
 	}
 
 	public List<Nave> getListado() {
