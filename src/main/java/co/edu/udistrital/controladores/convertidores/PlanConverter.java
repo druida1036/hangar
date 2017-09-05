@@ -9,8 +9,8 @@ import javax.faces.convert.FacesConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import co.edu.udistrital.modelo.PlanMantenimiento;
-import co.edu.udistrital.servicios.PlanMantenimientoService;
+import co.edu.udistrital.controladores.servicios.PlanMantenimientoService;
+import co.edu.udistrital.modelo.entidades.PlanMantenimiento;
  
 @Component
 @FacesConverter("planConverter")

@@ -9,8 +9,8 @@ import javax.faces.convert.FacesConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import co.edu.udistrital.modelo.Nave;
-import co.edu.udistrital.servicios.NaveService;
+import co.edu.udistrital.controladores.servicios.NaveService;
+import co.edu.udistrital.modelo.entidades.Nave;
  
 @Component
 @FacesConverter("naveConverter")

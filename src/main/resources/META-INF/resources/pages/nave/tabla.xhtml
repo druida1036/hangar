@@ -44,15 +44,25 @@
 
 						<h:outputText value="Estado" />
 						<h:outputText value="#{nave.estado}" />
+						
+						<p:commandLink update=":form:carDetail"
+							oncomplete="PF('carDialog').show()" title="View Detail"
+							action="#{naveController.completarRegistro()}">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{nave}"
+								target="#{naveController.registro}" />
+						</p:commandLink>
+
+						<p:commandLink update=":form:naves" title="Delete Detail"
+							action="#{naveController.borrarNave()}">
+							<h:outputText styleClass="ui-icon ui-icon-trash"
+								style="margin:0 auto;" />
+							<f:setPropertyActionListener value="#{nave}"
+								target="#{naveController.registro}" />
+						</p:commandLink>
 					</p:panelGrid>
-					<p:commandLink update=":form:carDetail"
-						oncomplete="PF('carDialog').show()" title="View Detail"
-						action="#{naveController.completarRegistro()}">
-						<h:outputText styleClass="ui-icon ui-icon-search"
-							style="margin:0 auto;" />
-						<f:setPropertyActionListener value="#{nave}"
-							target="#{naveController.registro}" />
-					</p:commandLink>
+
 
 					<f:facet name="footer">
                 Total #{naveController.listado.size()} naves.

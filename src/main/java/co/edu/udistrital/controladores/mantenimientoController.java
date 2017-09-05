@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import co.edu.udistrital.modelo.Avion;
-import co.edu.udistrital.modelo.Componente;
-import co.edu.udistrital.modelo.Nave;
-import co.edu.udistrital.modelo.PlanMantenimiento;
-import co.edu.udistrital.modelo.Tarea;
-import co.edu.udistrital.servicios.NaveService;
-import co.edu.udistrital.servicios.PlanMantenimientoService;
-import co.edu.udistrital.servicios.RegistroMantenimientoService;
+import co.edu.udistrital.controladores.servicios.NaveService;
+import co.edu.udistrital.controladores.servicios.PlanMantenimientoService;
+import co.edu.udistrital.controladores.servicios.RegistroMantenimientoService;
+import co.edu.udistrital.modelo.entidades.Avion;
+import co.edu.udistrital.modelo.entidades.Componente;
+import co.edu.udistrital.modelo.entidades.Nave;
+import co.edu.udistrital.modelo.entidades.PlanMantenimiento;
+import co.edu.udistrital.modelo.entidades.Tarea;
 
 @Controller
 @Scope("session")

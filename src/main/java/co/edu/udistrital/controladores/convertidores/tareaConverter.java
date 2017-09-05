@@ -9,8 +9,8 @@ import javax.faces.convert.FacesConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import co.edu.udistrital.modelo.Tarea;
-import co.edu.udistrital.servicios.TareaService;
+import co.edu.udistrital.controladores.servicios.TareaService;
+import co.edu.udistrital.modelo.entidades.Tarea;
  
 @Component
 @FacesConverter("tareaConverter")

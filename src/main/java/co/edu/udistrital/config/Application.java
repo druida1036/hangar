@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import co.edu.udistrital.scope.SessionReplicationAwareScopeMetadataResolver;
+import co.edu.udistrital.utilidades.scope.SessionReplicationAwareScopeMetadataResolver;
 
 /**
  * Call http://localhost:8080/index.xhtml after starting the application.

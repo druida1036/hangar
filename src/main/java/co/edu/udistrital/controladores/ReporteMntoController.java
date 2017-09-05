@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import co.edu.udistrital.modelo.RegistroMantenimiento;
-import co.edu.udistrital.servicios.RegistroMantenimientoService;
+import co.edu.udistrital.controladores.servicios.RegistroMantenimientoService;
+import co.edu.udistrital.modelo.entidades.RegistroMantenimiento;
 
 @Controller
 @Scope("session")

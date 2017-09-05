@@ -5,8 +5,8 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
-import co.edu.udistrital.scope.ScopeName;
-import co.edu.udistrital.scope.ViewScope;
+import co.edu.udistrital.utilidades.scope.ScopeName;
+import co.edu.udistrital.utilidades.scope.ViewScope;
 
 /**
  * BeanPostProcessor that registeres the view scope.
