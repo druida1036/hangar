@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "detalle_mantenmiento")
 @NamedQuery(name = "DetalleMantenimiento.findAll", query = "SELECT d FROM DetalleMantenimiento d")
-@IdClass(DetallemantenimientoPK.class)
+//@IdClass(DetallemantenimientoPK.class)
 public class DetalleMantenimiento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,19 +27,18 @@ public class DetalleMantenimiento implements Serializable {
 
 	private BigDecimal costo;
 
-	@ManyToOne
-	@Id
-	@JoinColumn(name = "registro_mantenimiento_id", insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+//	@Id
+	@JoinColumn(name = "registro_mantenimiento_id")
 	private RegistroMantenimiento mantenmiento;
 
-//	@MapsId()
 	@ManyToOne()
 //	@JoinColumn(name = "tarea_id", insertable = false, updatable = false)
 //	@JoinColumns({ @JoinColumn(name = "tarea_id", insertable = false, updatable = false),
 //			@JoinColumn(name = "id", insertable = false, updatable = false) })
 	private Tarea tarea;
 
-	@ManyToOne()
+	@ManyToOne(targetEntity = Componente.class)
 	private Componente componente;
 
 	public Componente getComponente() {

@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name = "Componente.findAll", query = "SELECT c FROM Componente c")
-@IdClass(ComponentePK.class)
+//@IdClass(ComponentePK.class)
 public class Componente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,12 +37,12 @@ public class Componente implements Serializable {
 
 	// bi-directional many-to-one association to Nave
 	@ManyToOne
-	@Id
-	@JoinColumn(name = " nave_id", insertable = false, updatable = false)
+//	@Id
+	@JoinColumn(name = " nave_id")
 	private Nave nave;
 
 	// bi-directional many-to-one association to RegistroMantenmiento
-	@OneToMany(mappedBy = "componente")
+	@OneToMany()
 	private List<DetalleMantenimiento> detalleMantenimientos = new ArrayList<DetalleMantenimiento>();
 
 	public List<DetalleMantenimiento> getDetalleMantenimientos() {

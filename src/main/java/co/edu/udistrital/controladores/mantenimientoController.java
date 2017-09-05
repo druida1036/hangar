@@ -8,21 +8,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import co.edu.udistrital.dao.DetalleMantenimientoDAO;
 import co.edu.udistrital.modelo.Componente;
+import co.edu.udistrital.modelo.DetalleMantenimiento;
 import co.edu.udistrital.modelo.Nave;
 import co.edu.udistrital.modelo.PlanMantenimiento;
+import co.edu.udistrital.modelo.RegistroMantenimiento;
 import co.edu.udistrital.modelo.Tarea;
 import co.edu.udistrital.servicios.NaveService;
 import co.edu.udistrital.servicios.PlanMantenimientoService;
+import co.edu.udistrital.servicios.RegistroMantenimientoService;
 
 @Controller
 @Scope("session")
 public class mantenimientoController {
-	
+
 	@Autowired
 	private NaveService naveService;
 	@Autowired
 	private PlanMantenimientoService mantenimientoService;
+	@Autowired
+	private RegistroMantenimientoService registroMantenimientoService;
+	@Autowired
+	private DetalleMantenimientoDAO detalleMantenimientoDAO;
 	private List<Nave> listado;
 	private List<PlanMantenimiento> planes;
 	private List<Componente> componentes;
@@ -30,25 +38,41 @@ public class mantenimientoController {
 	private Nave registro;
 	private PlanMantenimiento mantenimiento;
 	private List<Componente> registroComponente;
-	
+
 	@PostConstruct
-	public void init(){
+	public void init() {
 		listado = naveService.consultar();
 		planes = mantenimientoService.consultar();
 	}
-	
-	public void completarRegistro(){
+
+	public void completarRegistro() {
 		registro = naveService.consultar(registro.getId());
 	}
-	
-	public void completarMantenimiento(){
+
+	public void completarMantenimiento() {
 		mantenimiento = mantenimientoService.consultar(mantenimiento.getId());
 	}
-	
-	public void guardar(){
+
+	public void guardar() {
+		RegistroMantenimiento registroMantenimiento = new RegistroMantenimiento();
+		registroMantenimiento.setPlanMantenimiento(mantenimiento);
+		registroMantenimiento.setNave(registro);
+		
+		for (Componente componente : componentes) {
+			for (Tarea tarea : tareas) {
+				DetalleMantenimiento detalleMantenimiento = new DetalleMantenimiento();				
+				registroMantenimiento.getDetalleMantenimientos().add(detalleMantenimiento);
+				detalleMantenimiento.setMantenmiento(registroMantenimiento);
+				detalleMantenimiento.setComponente(componente);
+				detalleMantenimiento.setTarea(tarea);
+			}
+		}
+		
+		
+		registroMantenimientoService.crear(registroMantenimiento);
 		System.out.println("guardar");
 	}
-    
+
 	public List<Nave> getListado() {
 		return listado;
 	}
@@ -73,7 +97,8 @@ public class mantenimientoController {
 	}
 
 	/**
-	 * @param registroComponente the registroComponente to set
+	 * @param registroComponente
+	 *            the registroComponente to set
 	 */
 	public void setRegistroComponente(List<Componente> registroComponente) {
 		this.registroComponente = registroComponente;
@@ -87,7 +112,8 @@ public class mantenimientoController {
 	}
 
 	/**
-	 * @param planes the planes to set
+	 * @param planes
+	 *            the planes to set
 	 */
 	public void setPlanes(List<PlanMantenimiento> planes) {
 		this.planes = planes;
@@ -101,7 +127,8 @@ public class mantenimientoController {
 	}
 
 	/**
-	 * @param mantenimiento the mantenimiento to set
+	 * @param mantenimiento
+	 *            the mantenimiento to set
 	 */
 	public void setMantenimiento(PlanMantenimiento mantenimiento) {
 		this.mantenimiento = mantenimiento;
@@ -115,7 +142,8 @@ public class mantenimientoController {
 	}
 
 	/**
-	 * @param componentes the componentes to set
+	 * @param componentes
+	 *            the componentes to set
 	 */
 	public void setComponentes(List<Componente> componentes) {
 		this.componentes = componentes;
@@ -129,7 +157,8 @@ public class mantenimientoController {
 	}
 
 	/**
-	 * @param tareas the tareas to set
+	 * @param tareas
+	 *            the tareas to set
 	 */
 	public void setTareas(List<Tarea> tareas) {
 		this.tareas = tareas;

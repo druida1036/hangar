@@ -1,6 +1,9 @@
 package co.edu.udistrital.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -23,9 +26,12 @@ public class RegistroMantenimiento implements Serializable {
 	private Nave nave;
 
 	//bi-directional many-to-one association to PlanMantenimiento
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="plan_mantenimiento_id")
 	private PlanMantenimiento planMantenimiento;
+	
+	@OneToMany(mappedBy="mantenmiento", cascade = CascadeType.ALL)
+	private List<DetalleMantenimiento> detalleMantenimientos = new ArrayList<>();
 
 	public RegistroMantenimiento() {
 	}
@@ -52,6 +58,20 @@ public class RegistroMantenimiento implements Serializable {
 
 	public void setPlanMantenimiento(PlanMantenimiento planMantenimiento) {
 		this.planMantenimiento = planMantenimiento;
+	}
+
+	/**
+	 * @return the detalleMantenimientos
+	 */
+	public List<DetalleMantenimiento> getDetalleMantenimientos() {
+		return detalleMantenimientos;
+	}
+
+	/**
+	 * @param detalleMantenimientos the detalleMantenimientos to set
+	 */
+	public void setDetalleMantenimientos(List<DetalleMantenimiento> detalleMantenimientos) {
+		this.detalleMantenimientos = detalleMantenimientos;
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name = "Tarea.findAll", query = "SELECT t FROM Tarea t")
-@IdClass(TareaPK.class)
+//@IdClass(TareaPK.class)
 public class Tarea implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,8 +25,8 @@ public class Tarea implements Serializable {
 
 	// bi-directional many-to-one association to PlanMantenimiento
 	@ManyToOne()
-	@Id
-	@JoinColumn(name = "plan_mantenimiento_id", insertable = false, updatable = false)
+//	@Id
+	@JoinColumn(name = "plan_mantenimiento_id")
 	private PlanMantenimiento planMantenimiento;
 
 	// bi-directional many-to-one association to Tarea
